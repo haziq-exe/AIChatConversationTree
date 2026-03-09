@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Conversation Branch Tree Navigator",
+  "version": "1.0.0",
+  "description": "Visualize edited-message branches in ChatGPT and Claude from a tree view.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://chatgpt.com/*", "https://claude.ai/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["page-bridge.js"],
+      "matches": ["https://chatgpt.com/*", "https://claude.ai/*"]
+    }
+  ],
+  "action": {
+    "default_title": "Conversation Branch Tree Navigator"
+  }
+}
