@@ -33,7 +33,7 @@
 4. Use search or spacing/zoom controls to navigate large conversations.
 5. Click **Open Branch** to switch the main chat view to that branch when possible.
 
-## High-Level How It Works
+## How It Works
 
 The extension is a Manifest V3 browser extension with three main runtime layers:
 
@@ -64,8 +64,8 @@ At render time, the conversation graph is normalized into turn nodes, laid out a
 
 ## Notes
 
+- If tree doesn't load immediately, hit `Refresh` in the top right and try again.
 - Branch opening depends on live site DOM controls and can break if ChatGPT or Claude UI markup changes.
 - The extension intentionally filters to meaningful user/assistant turn content for readability.
 - Large conversations can still be computationally heavy, but panning, zooming, and search are designed to keep navigation practical.
 
-Built with Codex.
