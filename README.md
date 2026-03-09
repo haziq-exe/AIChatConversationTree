@@ -1,39 +1,71 @@
-# ChatGPT Branch Tree Navigator (Chrome Extension)
+# Conversation Branch Tree Navigator
 
-This extension adds a branch-tree panel on `chatgpt.com` that:
+## Features
 
-- Fetches full conversation graph data (`mapping`) from ChatGPT's conversation API.
-- Renders message nodes as a tree of small cards.
-- Shows a branch preview with the selected message and its assistant reply.
-- Provides an **Open Branch** action that replays branch choices in the existing ChatGPT UI.
+- Supports `chatgpt.com` and `claude.ai` conversations.
+- Builds a visual tree of conversation branches created from message edits.
+- Search through your chat.
+- `Open Branch` action that lets you switch the live chat UI to the selected branch and message.
+- Branch preview panel with full selected turn content.
+- Pan and zoom support for navigating large trees.
+- Adjustable layout controls:
+  - Global spacing
+  - Vertical spacing
+  - Horizontal spacing
+  - Node font size
 
-## Load the extension
+## Installation
 
-1. Open `chrome://extensions`.
-2. Enable **Developer mode**.
+1. Open `chrome://extensions` (or `brave://extensions`).
+2. Enable Developer mode.
 3. Click **Load unpacked**.
-4. Select this folder:
+4. Select this project directory:
    - `/Users/haziq/Desktop/Projects/GPT_BranchView`
+5. Reload the extension after code changes.
 
-## How to use
+## Usage
 
-1. Open any conversation URL in ChatGPT:
+1. Open a supported conversation page:
    - `https://chatgpt.com/c/<conversation_id>`
-2. Click **Branch Tree**.
-3. Select any node card in the tree.
-4. Review the preview.
-5. Click **Open Branch** to switch the main chat view to that branch path.
+   - `https://claude.ai/chat/<conversation_id>`
+2. Click the extension icon in the browser toolbar.
+3. Select a node in the tree to view its branch preview.
+4. Use search or spacing/zoom controls to navigate large conversations.
+5. Click **Open Branch** to switch the main chat view to that branch when possible.
 
-## Architecture
+## High-Level How It Works
 
-- `manifest.json`: MV3 extension manifest.
-- `background.js`: service worker "backend" for cached API fetches.
-- `page-bridge.js`: page-context fetch bridge (uses first-party ChatGPT session context).
-- `content.js`: in-page controller + frontend tree/preview UI + branch navigation logic.
-- `styles.css`: panel and node-card styling.
+The extension is a Manifest V3 browser extension with three main runtime layers:
 
-## Notes and limitations
+1. Content layer (`content.js` + `styles.css`)
+   - Injects the tree UI into supported pages.
+   - Parses conversation data into visible turn nodes.
+   - Handles tree rendering, search, preview, panning, zooming, and branch navigation.
+   - Receives toolbar-click messages from the service worker to open/close the panel.
 
-- ChatGPT DOM controls for branch switching are not guaranteed stable. The extension uses robust heuristics (message text matching + nearby variant controls), but UI changes can break navigation behavior.
-- The extension captures ChatGPT's own in-page conversation network responses first (`page-bridge.js` on `document_start`), waits briefly for capture availability, then falls back to iframe navigation fetch.
-- The tree currently renders only `user` and `assistant` message nodes for clarity.
+2. Page bridge layer (`page-bridge.js`)
+   - Runs in page context to access first-party network responses and authenticated fetch context when needed.
+   - Provides a safer fallback path when direct extension-context requests are unreliable.
+
+3. Background/service worker layer (`background.js`)
+   - Handles extension action clicks (`chrome.action.onClicked`) and forwards toggle messages to the active tab.
+   - Provides cached API fetch support for ChatGPT conversation payloads.
+
+At render time, the conversation graph is normalized into turn nodes, laid out as a vertical tree, then drawn into an interactive canvas. Branch switching is performed by driving the existing site UI with provider-specific DOM heuristics.
+
+## Project Structure
+
+- `manifest.json`: extension metadata, permissions, content scripts, and action config.
+- `background.js`: service worker, toolbar click handling, and cached fetch messaging.
+- `content.js`: UI logic, data shaping, rendering, search, and branch navigation.
+- `styles.css`: panel, controls, and tree styling.
+- `page-bridge.js`: page-context bridge for capture/fetch flows.
+- `icons/`: extension icon assets.
+
+## Notes
+
+- Branch opening depends on live site DOM controls and can break if ChatGPT or Claude UI markup changes.
+- The extension intentionally filters to meaningful user/assistant turn content for readability.
+- Large conversations can still be computationally heavy, but panning, zooming, and search are designed to keep navigation practical.
+
+Built with Codex.

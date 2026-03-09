@@ -15,28 +15,6 @@
   font-family: "Soehne", "Avenir Next", "Inter", "Segoe UI", sans-serif;
 }
 
-#cgbt-toggle {
-  position: fixed;
-  top: 88px;
-  right: 16px;
-  pointer-events: auto;
-  border: 1px solid #4d5058;
-  background: #23252a;
-  color: #f1f2f3;
-  padding: 8px 12px;
-  border-radius: 9px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  box-shadow: none;
-}
-
-#cgbt-toggle:hover {
-  border-color: #666a73;
-  background: #2c2f35;
-}
-
 #cgbt-panel {
   position: fixed;
   top: 0;
@@ -756,10 +734,5 @@
 @media (max-width: 640px) {
   #cgbt-panel {
     width: 100vw;
-  }
-
-  #cgbt-toggle {
-    top: 72px;
-    right: 12px;
   }
 }

@@ -1,6 +1,18 @@
 const CACHE_TTL_MS = 15_000;
 const conversationCache = new Map();
 
+chrome.action.onClicked.addListener(async (tab) => {
+  if (!tab || typeof tab.id !== "number") {
+    return;
+  }
+
+  try {
+    await chrome.tabs.sendMessage(tab.id, { type: "CGBT_TOGGLE_PANEL_FROM_ACTION" });
+  } catch (_error) {
+    // Ignore tabs where content script is unavailable.
+  }
+});
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (!message || typeof message !== "object") {
     sendResponse({ ok: false, error: "Invalid message payload." });

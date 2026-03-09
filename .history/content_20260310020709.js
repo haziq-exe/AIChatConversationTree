@@ -32,7 +32,7 @@
   const TREE_SPACING_MIN = 20;
   const TREE_SPACING_MAX = 150;
   const TREE_HORIZONTAL_SPACING_MAX = 250;
-  const DEBUG_NAV_LOGS = false;
+  const DEBUG_NAV_LOGS = true;
   const NODE_FONT_SIZE_MIN = 70;
   const NODE_FONT_SIZE_MAX = 180;
   const PREVIEW_SPLIT_MIN = 30;
