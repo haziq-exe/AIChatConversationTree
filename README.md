@@ -25,9 +25,7 @@
 
 ## Usage
 
-1. Open a supported conversation page:
-   - `https://chatgpt.com/c/<conversation_id>`
-   - `https://claude.ai/chat/<conversation_id>`
+1. Navigate to a supported conversation page.
 2. Click the extension icon in the browser toolbar.
 3. Select a node in the tree to view its branch preview.
 4. Use search or spacing/zoom controls to navigate large conversations.
