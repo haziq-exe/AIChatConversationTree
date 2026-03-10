@@ -1,4 +1,13 @@
+<div align="center">
+
 # Conversation Branch Tree Navigator
+
+<br>
+</div>
+
+<p align="center">
+  <img src="Demo.gif" alt="" width="900"/>
+</p>
 
 ## Features
 
@@ -16,12 +25,12 @@
 
 ## Installation
 
-1. Open `chrome://extensions` (or `brave://extensions`).
-2. Enable Developer mode.
-3. Click **Load unpacked**.
-4. Select this project directory:
-   - `/Users/haziq/Desktop/Projects/GPT_BranchView`
-5. Reload the extension after code changes.
+1. Clone this repo
+2. Open `chrome://extensions` or equivalent page on your browser.
+3. Enable Developer mode.
+4. Click **Load unpacked**.
+5. Select your clone project directory.
+6. Reload the extension after code changes.
 
 ## Usage
 
